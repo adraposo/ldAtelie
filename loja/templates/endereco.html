@@ -1,0 +1,61 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+
+
+    <main class="principal">
+        <section class="conta">
+            <a href="{% url 'checkout' %}" class="checkout__botao">Ir para checkout</a>
+            <div class="conta__container">
+
+                <div class="checkout__titulos">
+                    <p class="checkout__titulo">Adicione um novo endereço</p>
+                </div>
+    
+                <form
+                class="conta__form"
+                action="{% url 'adicionar_endereco' %}"
+                method="post"
+                >
+                    {% csrf_token %}
+        
+                    <div class="conta__item">
+                        <label for="rua">Rua</label>
+                        <input type="text" name="rua" placeholder="Rua">
+                    </div>
+                    <div class="conta__item">
+                        <label for="number">Número</label>
+                        <input type="number" name="numero" placeholder="numero">
+                    </div>              
+                    <div class="conta__item">
+                        <label for="complemento">Complemento</label>
+                        <input type="text" name="complemento" placeholder="complemento">  
+                    </div>              
+                    <div class="conta__item">
+                        <label for="bairro">Bairro</label>
+                        <input type="text" name="bairro" placeholder="bairro">
+                    </div>
+                    <div class="conta__item">
+                        <label for="cidade">Cidade</label>
+                        <input type="text" name="cidade" placeholder="cidade">
+                    </div>                
+                    <div class="conta__item">
+                        <label for="estado">UF</label>
+                        <input type="text" name="estado" placeholder="UF">
+                    </div>             
+                    <div class="conta__item">
+                        <label for="cep">CEP</label>
+                        <input type="text" name="cep" placeholder="99999999">
+                    </div>     
+            
+                    <button class="subtotal__botao" type="submit">
+                        Adicionar endereço
+                    </button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+{% endblock %}

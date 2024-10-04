@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+
+    <main class="principal">
+        <section class="conta">
+
+            <div class="conta__container">
+
+                <div class="checkout__titulos">
+                    <p class="checkout__titulo">Principais indicadores</p>
+                </div>
+
+                <div class="checkout__pagamento-formas">
+
+                    <div class="checkout__pagamento-item">
+                    <p>Faturamento: R$ {{ faturamento }}</p>
+                    </div>
+
+                    <div class="checkout__pagamento-item">
+                        <p>Total pedidos : {{ qtde_pedidos }}</p>
+                    </div>
+
+                    <div class="checkout__pagamento-item">
+                        <p>Produtos vendidos: {{ qtdeprodutosvendidos }}</p>
+                    </div>          
+                </div>
+            </div>
+
+            <div class="conta__container">
+
+                <div class="checkout__titulos">
+                    <p class="checkout__titulo">Exportar relatórios</p>
+                </div>
+
+                <div class="subtotal__botao">
+                    <a href="{% url 'exportar_relatorio' 'pedidos' %}">Exportar pedidos</a>
+                </div>
+        
+                <div class="subtotal__botao">
+                    <p><a href="{% url 'exportar_relatorio' 'clientes' %}">Exportar clientes</a></p>
+                </div>
+
+                <div class="subtotal__botao">
+                    <p><a href="{% url 'exportar_relatorio' 'enderecos' %}">Exportar endereços</a></p>    
+                </div>
+            </div>
+
+        </section>
+    </main>
+{% endblock %}

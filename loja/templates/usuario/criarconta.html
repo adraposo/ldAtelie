@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+
+    <main class="principal">
+        <section class="conta">
+          <div class="conta__container">
+            <div class="checkout__titulos">
+              <p class="checkout__titulo">Crie sua conta</p>
+                {% if erro == "email_invalido" %}
+                    <p>O email digitado é inválido. Preencha o campo email no formato correto.</p>
+                {% endif%}
+                {% if erro == "usuario_existente" %}
+                    <p>Já existe o email digitado cadastrado. <a href="{% url 'fazerlogin' %}"> Faça o login.</a></p>
+                {% endif%}
+                {% if erro == "senhas_diferentes" %}
+                    <p>Senha e confirmação de senha diferentes. Elas precisam ser iguais.</p>
+                {% endif%}
+                {% if erro == "preenchimento" %}
+                    <p>Preencha todas as informações corretamente para criar conta.</p>
+                {% endif%}
+      
+            </div>
+  
+            <form
+              class="conta__form"
+              action="{% url 'criarconta' %}"
+              method="post"
+            >
+              {% csrf_token %}
+  
+              <div class="conta__item conta__item--email">
+                <label for="email">E-mail</label>
+                <input type="email" name="email" placeholder="Email"  />
+              </div>
+
+              <div class="conta__item ">
+                <label for="senha">Senha</label>
+                <input type="password" name="senha" placeholder="Senha" />
+              </div>
+
+              <div class="conta__item ">
+                <label for="confirmacaosenha">Confirmação senha</label>
+                <input type="password" name="confirmacaosenha" placeholder="Confirmação senha" />
+              </div>              
+    
+              <button class="subtotal__botao" type="submit">
+                Criar conta
+              </button>
+            </form>
+            <a href="{% url 'fazerlogin' %}">Já tem uma conta ? Faça seu login</a>
+          </div>
+        </section>
+    </main>
+
+
+{% endblock %}

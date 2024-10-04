@@ -1,0 +1,56 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block body %}
+
+    <main class="principal">
+        <section class="conta">
+          <div class="conta__container">
+            <div class="checkout__titulos">
+              <p class="checkout__titulo">Meus pedidos</p>
+            </div>
+  
+            <div class="pedido">
+                {% for pedido in meuspedidos %}  
+                    <div class="pedido__cabecalho">
+                        <div>
+                        <p><b>Data do pedido</b></p>
+                        <p>{{ pedido.data_finalizacao }}</p>
+                        </div>
+        
+                        <div>
+                        <p><b>Total</b></p>
+                        <p>R$ {{ pedido.preco_total }}</p>
+                        </div>
+        
+                        <div>
+                        <p><b>Número do pedido</b></p>
+                        <p>{{ pedido.id }}</p>
+                        </div>
+                    </div>
+  
+                    <div class="pedido__corpo">
+                        {% for item in pedido.itens %}
+                            <div class="tabela__imagem">
+                            <img
+                                src="{{ item.item_estoque.produto.imagem.url }}"
+                                alt="Imagem do Produto"
+                            />
+                            </div>
+                            <div class="tabela__produto-textos">
+                                <p><b>{{ item.item_estoque.produto.descricao }}</b></p>
+                                <p><b>Quantidade :</b> {{ item.quantidade }}</p>
+                                <p><b>Preço :</b> {{ item.preco_total }}</p>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            </div>
+  
+          </div>
+        </section>
+      </main>
+
+{% endblock %}

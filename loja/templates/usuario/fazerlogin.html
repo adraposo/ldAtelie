@@ -1,0 +1,44 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+
+    <main class="principal">
+        <section class="conta">
+          <div class="conta__container">
+            <div class="checkout__titulos">
+              <p class="checkout__titulo">Faça seu login</p>
+              {% if erro %}
+              <h4>Erro ao fazer login. Tente novamente</h4>
+              {% endif%}
+            </div>
+  
+            <form
+              class="conta__form"
+              action=""
+              method="post"
+            >
+              {% csrf_token %}
+  
+              <div class="conta__item">
+                <label for="email">E-mail</label>
+                <input type="email" name="email" placeholder="Email"  />
+              </div>
+
+              <div class="conta__item ">
+                <label for="senha">Senha</label>
+                <input type="password" name="senha" placeholder="Senha" />
+              </div>
+    
+              <button class="subtotal__botao" type="submit">
+                Entrar
+              </button>
+            </form>
+            <a href="{% url 'criarconta' %}">Não tem uma conta ? Criar conta</a>
+            <a href="{% url 'password_reset' %}">Esqueci minha senha</a>
+          </div>
+        </section>
+    </main>
+
+{% endblock %}

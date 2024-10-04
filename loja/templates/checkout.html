@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body %}
+
+    <main class="principal">
+        <section class="secao-checkout">
+          <a href="{% url 'carrinho' %}" class="checkout__botao">Voltar ao carrinho</a>
+  
+          <div class="checkout">
+            {% if erro %}
+                {% if erro == "preco" %}
+                    <p>Preço informado é diferente do valor do carrinho.</p>
+                {% endif%}
+                {% if erro == "endereco" %}
+                    <p>Não foi informado o endereço de entrega.</p>   
+                {% endif%}
+                {% if erro == "email" %}
+                    <p>Email de entrega não informado.</p>           
+                {% endif%}
+            {% endif%}
+    
+            <form
+                class="checkout__form"
+                action="{% url 'finalizarpedido' pedido.id %}"
+                method="post"
+            >
+                {% csrf_token %}
+                <!-- Adicionar a classe 'checkout__secao-entrega-login--logado' na div abaixo quando o usuário estiver logado -->
+                {% if request.user.is_authenticated %}
+                    <div class="checkout__secao-entrega-login checkout__secao-entrega-login--logado">
+                {% else %}
+                    <div class="checkout__secao-entrega-login">
+                {% endif %}
+                    <div class="checkout__secao-login">
+                        <div class="checkout__titulos">
+                            <p class="checkout__titulo">Identifique-se</p>
+                        </div>
+        
+                        <div class="checkout__endereco-item">
+                            <label for="email">E-mail</label>
+                            <input name="email" type="email" />
+                        </div>
+                    </div>
+    
+                    <div class="checkout__secao-entrega">
+                        <div class="checkout__titulos">
+                            <p class="checkout__titulo">Endereço de entrega</p>
+                            <button
+                                class="checkout__botao checkout__botao--entrega"
+                                type="button"
+                            >
+                                <a href="{% url 'adicionar_endereco' %}">Adicionar endereço de entrega</a>
+                            </button>
+                        </div>
+        
+                        <div class="checkout__endereco-cadastrado">
+
+                            {% for endereco in enderecos %}
+                                <div class="checkout__pagamento-item">
+                                    <input type="radio" name="endereco" value="{{ endereco.id }}"
+                                    <label for="{{ endereco.id }}"> Endereço {{ endereco.id }} - {{ endereco.rua }}, {{ endereco.numero }}, {{ endereco.complemento }}, {{ endereco.cidade }}-{{ endereco.estado }}, {{ endereco.cep }}</label>
+                                    <hr>
+                                </div>
+                            {% endfor %}  
+
+                        </div>
+        
+                    </div>
+                </div>
+  
+                <div class="checkout__secao-pagamento-infos">
+                    <div class="checkout__secao-pagamento">
+                    <div class="checkout__titulos">
+                        <p class="checkout__titulo">Formas de Pagamento</p>
+                    </div>
+    
+                    <div class="checkout__pagamento-formas">
+                        <div class="checkout__pagamento-item">
+                        <p>Cartão de Crédito</p>
+                        </div>
+    
+                        <div class="checkout__pagamento-item">
+                        <p>Boleto</p>
+                        </div>
+    
+                        <div class="checkout__pagamento-item">
+                        <p>PIX</p>
+                        </div>
+                    </div>
+                    </div>
+    
+                    <div class="checkout__secao-infos">
+                    <div class="checkout__titulos checkout__titulos--mb">
+                        <p class="checkout__titulo">Resumo</p>
+                    </div>
+    
+                    <div class="subtotal__infos">
+                        <p>Quantidade de Produtos</p>
+                        <p>{{ pedido.quantidade_total }}</p>
+                    </div>
+    
+                    <div class="subtotal__infos subtotal__infos--sborda">
+                        <p>Total</p>
+                        <p>R$ {{ pedido.preco_total }}</p>
+
+                    </div>
+                    <input type="hidden" name="total" value="{{ pedido.preco_total }}">
+                    <button class="subtotal__botao" type="submit">
+                        Finalizar Pedido
+                    </button>
+                    </div>
+                </div>
+            </form>
+          </div>
+        </section>
+      </main>
+  
+{% endblock %}
