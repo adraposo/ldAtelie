@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from pathlib import Path
 import os
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -21,13 +22,20 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-00^44v1p$ft2+5l1+z7h0d4_1($vj-keex0d2si*(wy6r^)6%s"
+
+TOKEN_CSRF = os.getenv("TOKEN_CSRF")
+
+if TOKEN_CSRF: 
+    SECRET_KEY = TOKEN_CSRF
+    CSRF_TRUSTED_ORIGINS = ["https://ldatelie-production.up.railway.app"]
+else:
+    SECRET_KEY = "django-insecure-00^44v1p$ft2+5l1+z7h0d4_1($vj-keex0d2si*(wy6r^)6%s"
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["*"] 
-
+ALLOWED_HOSTS = ["ldatelie-production.up.railway.app", "localhost", "http://127.0.0.1"]
 
 # Application definition
 
@@ -88,7 +96,6 @@ DATABASES = {
 }
 
 import dj_database_url
-import os
 
 DATABASE_URL = os.getenv("DATABASE_URL")
 
