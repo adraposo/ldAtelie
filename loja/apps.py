@@ -5,17 +5,17 @@ class LojaConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
     name = "loja"
 
-    def ready(self) -> None:
-        from .models import Usuario
+    def ready(self):
+        from .models import Cliente
         import os
 
         email = os.getenv("EMAIL_ADMIN")
         senha = os.getenv("SENHA_ADMIN")
 
-        usuarios = Usuario.objects.filter(email=email)
+        cliente = Cliente.objects.filter(email=email)
 
-        if not usuarios:
-            Usuario.objects.create_superuser(username="admin", email=email, password=senha,
+        if not cliente:
+            Cliente.objects.create_superuser(username="admin", email=email, password=senha,
                                              is_active=True, is_staff=True)
             
 
