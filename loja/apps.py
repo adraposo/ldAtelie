@@ -6,16 +6,16 @@ class LojaConfig(AppConfig):
     name = "loja"
 
     def ready(self):
-        from .models import Cliente
+        from .models import User
         import os
 
         email = os.getenv("EMAIL_ADMIN")
         senha = os.getenv("SENHA_ADMIN")
 
-        cliente = Cliente.objects.filter(email=email)
+        users = User.objects.filter(email=email)
 
-        if not cliente:
-            Cliente.objects.create_superuser(username="admin", email=email, password=senha,
+        if not users:
+            User.objects.create_superuser(username="admin", email=email, password=senha,
                                              is_active=True, is_staff=True)
             
 
