@@ -15,7 +15,7 @@ class LojaConfig(AppConfig):
         users = User.objects.filter(email=email)
 
         if not users:
-            User.objects.create_superuser(username="admin", email=email, password=senha,
+            User.objects.create_superuser(username="admin01", email=email, password=senha,
                                              is_active=True, is_staff=True)
             
 
