@@ -17,7 +17,6 @@ def carrinho (request):
     for item in itens_pedido:
         qtde_prod_carrinho += item.quantidade
 
-    print("quantidade carrinho: ", qtde_prod_carrinho)
     return {"qtde_prod_carrinho": qtde_prod_carrinho}
 
 def categorias_tipos(request):
