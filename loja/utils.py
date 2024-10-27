@@ -4,7 +4,7 @@ from django.http import HttpResponse
 import csv
 
 def filtrar_produtos(produtos, param):
-    print( "vai filtrar")
+    # print( "vai filtrar")
     if param:
         if "-" in param:
             categoria, tipo = param.split("-")
@@ -25,8 +25,8 @@ def preco_min_max(produtos):
     return (minimo, maximo)
 
 def ordenar_produtos(produtos, ordem):
-    print ("produtos-->" , produtos)
-    print("ordem-->", ordem)
+    # print ("produtos-->" , produtos)
+    # print("ordem-->", ordem)
     if ordem == "menorpreco":
         produtos = produtos.order_by("preco")
     elif ordem == "maiorpreco":
@@ -53,8 +53,8 @@ def enviar_email_compra(pedido):
     return pedido
 
 def exportar_csv(informacoes):
-    print(informacoes.model)
-    print(informacoes.model._meta.fields)
+    # print(informacoes.model)
+    # print(informacoes.model._meta.fields)
     colunas = informacoes.model._meta.fields
     nomes_colunas = [coluna.name for coluna in colunas]
     resposta = HttpResponse(content_type="text/csv")

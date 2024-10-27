@@ -32,12 +32,12 @@ def criar_pagamento(itens_pedido, link):
                      }
 
     resposta = sdk.preference().create(preference_data)
-    print("preference_data--> ", preference_data)
-    print (" ")
-    print ("resposta response--> ", resposta["response"])
+    # print("preference_data--> ", preference_data)
+    # print (" ")
+    # print ("resposta response--> ", resposta["response"])
     link_pagamento = resposta["response"]["init_point"]
     id_pagamento = resposta["response"]["id"]
-    print (" ")
+    # print (" ")
     return link_pagamento, id_pagamento
     
 
